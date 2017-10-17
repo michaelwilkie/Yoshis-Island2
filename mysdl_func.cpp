@@ -90,7 +90,7 @@ bool MYSDL_loadMedia(SDL_Surface** image, std::string filepath)
 
 	return result;
 }
-bool MYSDL_loadMedia(Entity &player, int filterR, int filterG, int filterB)
+bool MYSDL_loadMedia(Player &player, int filterR, int filterG, int filterB)
 {
 	bool result = true;
 	//Open the font
@@ -128,32 +128,7 @@ bool MYSDL_loadMedia(Entity &player, int filterR, int filterG, int filterB)
 				}
 			}
 		}
-		if (!gRedTexture.loadFromFile("Textures/red.png", filterR, filterG, filterB))
-		{
-			printf("Unable to render red.png texture!\n");
-			result = false;
-		}
-		if (!gGreenTexture.loadFromFile("Textures/green.png", filterR, filterG, filterB))
-		{
-			printf("Unable to render green.png texture!\n");
-			result = false;
-		}
-		if (!gBlueTexture.loadFromFile("Textures/blue.png", filterR, filterG, filterB))
-		{
-			printf("Unable to render blue.png texture!\n");
-			result = false;
-		}
-		if (!gShimmerTexture.loadFromFile("Textures/shimmer.png", filterR, filterG, filterB))
-		{
-			printf("Unable to render shimmer.png texture!\n");
-			result = false;
-		}
 	}
-	//Set texture transparency
-	gRedTexture.setAlpha(192);
-	gGreenTexture.setAlpha(192);
-	gBlueTexture.setAlpha(192);
-	gShimmerTexture.setAlpha(192);
 
 	return result;
 }

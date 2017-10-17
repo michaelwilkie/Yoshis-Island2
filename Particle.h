@@ -1,6 +1,5 @@
-#ifndef Particle_H
+/*#ifndef Particle_H
 #define Particle_H
-
 #include "MYSDL_FUNC.h"
 
 class Particle
@@ -15,6 +14,7 @@ public:
 
 	//Checks if particle is dead
 	bool isDead();
+	LTexture gTexture;
 
 private:
 	//The particles
@@ -30,3 +30,4 @@ private:
 	LTexture* mTexture;
 };
 #endif
+*/

@@ -1,7 +1,8 @@
+/*#ifndef LTexture_H
+#define LTexture_H
+
 #include "MYSDL_FUNC.h"
 
-#ifndef LTexture_H
-#define LTexture_H
 class LTexture
 {
 public:
@@ -47,4 +48,4 @@ private:
 	int mWidth;
 	int mHeight;
 };
-#endif
+#endif*/

@@ -1,23 +1,36 @@
 #include "MYSDL_FUNC.h"
 #include <iomanip>
 
-void HandleCamera(SDL_Rect& camera, Entity& player);
+SDL_Window* gWindow;
+SDL_Renderer* gRenderer;
+SDL_Surface* gScreenSurface;
+TTF_Font* gFont;
+float flCurrentTime;
+float flPreviousTime;
+float dt;
+int SCREEN_HEIGHT = 580;
+int SCREEN_WIDTH = 840;
+int SCREEN_FPS;
+int SCREEN_TICKS_PER_FRAME;
+int LEVEL_WIDTH;
+int LEVEL_HEIGHT;
+void HandleCamera(SDL_Rect& camera, Player& player);
 
 void ClearScreen();
 
 void Update();
 
-void PrintDebugInfo(Entity &player, std::stringstream &text, LTexture &gTimeTexture,
+void PrintDebugInfo(Player &player, std::stringstream &text, LTexture &gTimeTexture,
 	SDL_Color &textColor, int camera_w, int camera_h, double avgFPS);
 
-void Render(LTexture &gBGTexture, Entity &player,
+void Render(LTexture &gBGTexture, Player &player,
 	std::stringstream &text, SDL_Rect &camera,
 	int frame, Yoshi_Anim yoshianimation);
 
-void HandleInput(Entity &player, bool &quit);
+void HandleInput(Player &player, bool &quit);
 
-void HandleAnimation(Entity &player, int &frame, Yoshi_Anim &yoshianimation,
-	bool &bOnce, bool &animationcomplete,
+void HandleAnimation(Player &player, int &frame, Yoshi_Anim &yoshianimation,
+	Yoshi_Anim &test, bool &bOnce, bool &animationcomplete,
 	int &animlength);
 
 int main(int argc, char* args[])
@@ -30,16 +43,20 @@ int main(int argc, char* args[])
 	int filterB = 0xFF;	
 
 	//The dot that will be moving around on the screen
-	Entity player(20,20);
+	Player player(20,20);
+	Entity g(40, 40);
 
 	int frame = 0;
 	Yoshi_Anim yoshianimation = YOSHI_IDLE0;
+	Yoshi_Anim test = yoshianimation;
 
 	bool animationcomplete = false;
 	bool bOnce = true;
 
 	// Collision boxes
 	std::vector<SDL_Rect> colliders;
+
+	std::vector<Entity> GlobalEntityList;
 
 	int camera_w = SCREEN_WIDTH / 2;
 	int camera_h = SCREEN_HEIGHT / 2;
@@ -66,11 +83,7 @@ int main(int argc, char* args[])
 	int animlength = 8;
 
 	//Set the wall
-	SDL_Rect wall;
-	wall.x = 0;
-	wall.y = 700;
-	wall.w = 460;
-	wall.h = 120;
+	SDL_Rect wall = { 0, 700, 460, 120 };
 
 	SDL_Rect visualwall { wall.x, wall.y, wall.w, wall.h };
 
@@ -90,7 +103,7 @@ int main(int argc, char* args[])
 			gBGTexture.loadFromFile("Textures/1-1.png", filterR, filterG, filterB);
 			capTimer.start();
 			SDL_QueryTexture(gBGTexture.getSDLTexture(), NULL, NULL, &LEVEL_WIDTH, &LEVEL_HEIGHT);
-			SDL_QueryTexture(player.gTexture.getSDLTexture(), NULL, NULL, &player.gTextureWidth, &player.gTextureHeight);
+			SDL_QueryTexture(player.gTexture.getSDLTexture(), NULL, NULL, &player.TextureWidth, &player.TextureHeight);
 			while (!quit)
 			{
 				float avgFPS = countedFrames / (fpsTimer.getTicks() / 1000.f);
@@ -109,7 +122,7 @@ int main(int argc, char* args[])
 				HandleInput(player, quit);
 				
 				// Handle the animation Yoshi should be doing
-				HandleAnimation(player, frame, yoshianimation, bOnce, animationcomplete, animlength);
+				HandleAnimation(player, frame, yoshianimation, test, bOnce, animationcomplete, animlength);
 
 				// Move the dot
 				player.move(wall);
@@ -124,14 +137,14 @@ int main(int argc, char* args[])
 				PrintDebugInfo(player, text, gTimeTexture, textColor, camera_w, camera_h, avgFPS);
 
 				Update();
-				//printf("Current Animation: %s frame %d\n", (yoshianimation == YOSHI_IDLE0 ? "YOSHI_IDLE0" : "YOSHI_WALK"), frame/8);
+				printf("frame: %d\n", frame / 2);
 				//Go to next frame
 				++frame;
 				
-				if (frame / 8 >= animlength)
+				if (frame / 2 >= animlength)
 				{
-					frame = 0;
-					//animationcomplete = true;
+					//frame = 0;
+					animationcomplete = true;
 				}
 
 				++countedFrames;
@@ -153,7 +166,7 @@ void Update()
 	//Update screen
 	SDL_RenderPresent(gRenderer);
 }
-void Render(LTexture &gBGTexture, Entity &player,
+void Render(LTexture &gBGTexture, Player &player,
 		std::stringstream &text	, SDL_Rect &camera,
 		int frame				, Yoshi_Anim yoshianimation)		
 {
@@ -163,13 +176,13 @@ void Render(LTexture &gBGTexture, Entity &player,
 	//visualwall.y = wall.y - camera.y;
 	
 	//Render objects
-	player.render(camera.x, camera.y, yoshianimation, frame / 8);
+	player.render(camera.x, camera.y, yoshianimation, frame / 4);
 }
-void HandleCamera(SDL_Rect& camera, Entity& player)
+void HandleCamera(SDL_Rect& camera, Player& player)
 {
 	//Center the camera over the dot
-	camera.x = (player.getPosX() + Entity::ENT_WIDTH / 2) - camera.w / 2;
-	camera.y = (player.getPosY() + Entity::ENT_HEIGHT / 2) - camera.h / 2;
+	camera.x = (player.getPosX() + Player::ENT_WIDTH / 2) - camera.w / 2;
+	camera.y = (player.getPosY() + Player::ENT_HEIGHT / 2) - camera.h / 2;
 
 	//Keep the camera in bounds
 	if (camera.x < 0)						camera.x = 0;
@@ -182,7 +195,7 @@ void ClearScreen()
 	SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 	SDL_RenderClear(gRenderer);
 }
-void PrintDebugInfo(Entity &player, std::stringstream &text, LTexture &gTimeTexture, 
+void PrintDebugInfo(Player &player, std::stringstream &text, LTexture &gTimeTexture, 
 					SDL_Color &textColor, int camera_w, int camera_h, double avgFPS)
 {
 	text.str("");
@@ -210,11 +223,11 @@ void PrintDebugInfo(Entity &player, std::stringstream &text, LTexture &gTimeText
 	gTimeTexture.loadFromRenderedText(text.str().c_str(), textColor);
 	gTimeTexture.render(camera_w - gTimeTexture.getWidth(), camera_h - gTimeTexture.getHeight() * 6);
 	text.str("");
-	text << "isFalling: " << player.isFalling() << "jumpflag: " << player.jumpflag << "collideflag: " << player.collideflag;
+	text << "isFalling: " << player.isFalling() << "jflag: " << player.jumpflag << "cflag: " << player.collideflag;
 	gTimeTexture.loadFromRenderedText(text.str().c_str(), textColor);
 	gTimeTexture.render(camera_w - gTimeTexture.getWidth(), camera_h - gTimeTexture.getHeight() * 7);
 }
-void HandleInput(Entity &player, bool &quit)
+void HandleInput(Player &player, bool &quit)
 {
 	//Event handler
 	SDL_Event e;
@@ -236,20 +249,12 @@ void HandleInput(Entity &player, bool &quit)
 			if (e.type == SDL_KEYUP)
 				player.stopJumping();
 		}
-		else if (e.key.keysym.sym == SDLK_e)
-		{
-			player.HideParticles();
-		}
-		else if (e.key.keysym.sym == SDLK_r)
-		{
-			player.ShowParticles();
-		}
 		// Handle dot input
 		player.handleEvent(e);
 	}
 }
-void HandleAnimation(Entity &player, int &frame, Yoshi_Anim &yoshianimation,
-					bool &bOnce, bool &animationcomplete,
+void HandleAnimation(Player &player, int &frame, Yoshi_Anim &yoshianimation,
+					Yoshi_Anim &test, bool &bOnce, bool &animationcomplete,
 					int &animlength)
 {
 	if (player.canJump() && !player.isMoving())
@@ -259,8 +264,20 @@ void HandleAnimation(Entity &player, int &frame, Yoshi_Anim &yoshianimation,
 		{
 			animationcomplete = false;
 			frame = 0;
+			switch (yoshianimation)
+			{
+			case YOSHI_IDLE0:
+				test = YOSHI_IDLE1;
+				break;
+			case YOSHI_IDLE1:
+				test = YOSHI_IDLE2;
+				break;
+			case YOSHI_IDLE2:
+				test = YOSHI_IDLE0;
+				break;
+			}
 		}
-		yoshianimation = YOSHI_IDLE0;
+		yoshianimation = test;
 	}
 	else if (player.canJump() && player.isMoving()) // if player is walking
 	{
@@ -289,7 +306,7 @@ void HandleAnimation(Entity &player, int &frame, Yoshi_Anim &yoshianimation,
 				{
 					animationcomplete = false;
 					yoshianimation = YOSHI_FALL; // begin to fall
-					frame = 0;
+					frame = 3 * animlength;
 				}
 				else
 				{
@@ -297,7 +314,8 @@ void HandleAnimation(Entity &player, int &frame, Yoshi_Anim &yoshianimation,
 					{
 						animationcomplete = false;
 						yoshianimation = YOSHI_FALL;
-						frame = 3;
+						frame = 2;
+						// frame = 8 * animlength
 					}
 				}
 			}
@@ -318,7 +336,8 @@ void HandleAnimation(Entity &player, int &frame, Yoshi_Anim &yoshianimation,
 			animationcomplete = false;
 			yoshianimation = YOSHI_FALL;
 			bOnce = false;
-			frame = 3;
+			frame = 0;
+			//frame = 3 * animlength;
 		}
 		else
 		{
@@ -326,7 +345,8 @@ void HandleAnimation(Entity &player, int &frame, Yoshi_Anim &yoshianimation,
 			{
 				animationcomplete = false;
 				yoshianimation = YOSHI_FALL;
-				frame = 3;
+				frame = 0;
+				// frame = 3 * animlength;
 			}
 		}
 	}

@@ -1,4 +1,4 @@
-#include "LTexture.h"
+#include "MYSDL_FUNC.h"
 
 LTexture::LTexture()
 {
