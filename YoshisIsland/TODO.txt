@@ -1,0 +1,5 @@
+1. Finish implementing Window class
+	test run it
+2. Add other classes
+	add generic object class as a base for all others
+	try to hide pointers as well as possible
