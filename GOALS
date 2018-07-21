@@ -1,0 +1,56 @@
+The last attempt on this project (now moved to the 'old' folder) was a flop for two reasons:
+  1. The code was a mess. Circular includes everywhere causing almost unsolvable linker problems and poorly designed code that couldn't scale.
+  2. I didn't have a road map of where to go to next so I spent a lot of time and effort sitting and thinking of what to work on next.
+
+To solve these problems I have done the following:
+  1. Designed a good portion of this project on paper to know what I should expect to write and what problems might arise.
+  2. Wrote down a fairly straight-fortward todo list to keep track of my progress and make sure I complete what I'm working on before I move on to the next step.
+  3. Used a stop, compile, test, and proceed method of programming to minimize time spent debugging.
+  4. Attempted to follow a design principles:
+      - minimum functionality/minimum redundancy - functionality is only given to those classes that need it or need it as an interface
+      - factory design pattern - for managing a potentially large number of types of objects, this is needed to make this feasible and scalable.
+
+Here is my current todo list:
+version difficulty - description
+x.x     *
+0.1 ***** - Entity implemented w/ sprite
+          - Generic ObjectList/declarative object creation implemented
+          - Automatic free resources (destructors)
+          - Collision physics implemented
+0.2 ***** - Subclasses implemented
+          - Camera w/ adjustible settings
+          - Wall, elevator, trigger, effect, interactive
+          - Keyboard input
+0.3 ***** - Start a menu system
+          - implement menu actions
+          - keyboard input
+          - Menu buttons/event handling
+0.4 ***   - Camera settings
+          - Parallelaxing
+          - Layers
+0.5 ***   - Point entity class implemented
+          - Elevator
+          - Player class
+          - Scripted events
+0.6 ***   - Enemy class implemented
+          - Basic AI (logical agent)
+          - Ally class
+          - AI chat bubbles
+0.7 **    - Create main menu
+          - Create options menu
+          - Create console debug
+0.8 ****  - Create level editor
+          - File save/load
+          - Add sound
+0.9 ****  - Particle effects & polish
+          - Add levels
+          - Add music
+1.0 ***** - Finish up anything left over
+          - Double check everything
+          - Double check everything again
+          - Debug
+          - Tell people about it
+
+1.x       - Think about more stuff to do or fix any bugs found after release          
+          
+          
