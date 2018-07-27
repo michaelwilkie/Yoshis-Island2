@@ -8,7 +8,7 @@ using std::endl;
 Window::Window()
 {
 	cout << "Creating null window" << endl;
- 	window = NULL;
+	window = NULL;
 	screenSurface = NULL;
 	renderer = NULL;
 	countedframes = 0;
@@ -115,7 +115,7 @@ bool Window::loadMedia()
 			cout << "Error loading wall texture" << endl;
 		}
 	}
-	
+
 	return success;
 }
 
@@ -155,4 +155,12 @@ SDL_Surface* Window::getSurface()
 SDL_Renderer* Window::getRenderer()
 {
 	return renderer;
+}
+void Window::calculateAverageFPS()
+{
+	avgfps = countedframes / getTime();
+	if (avgfps > 2000000)
+	{
+		avgfps = 0;
+	}
 }

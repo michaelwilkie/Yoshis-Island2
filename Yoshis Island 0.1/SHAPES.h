@@ -5,18 +5,6 @@ typedef struct CIRCLE
 	float x, y;
 	int r;
 }CIRCLE;
-typedef struct POINT
-{
-	float x, y;
-	POINT(float x = 0, float y = 0)
-		: x(x), y(y) {}
-	POINT  operator+ (const POINT v) { return POINT(x + v.x, y + v.y); }
-	POINT  operator- (const POINT v) { return POINT(x - v.x, y - v.y); }
-	void   operator+=(const POINT &v) { x += v.x;	y += v.y; }
-	void   operator-=(const POINT &v) { x -= v.x;	y -= v.y; }
-	void   operator*=(const POINT &v) { x *= v.x;	y *= v.y; }
-	void   operator+=(const VECTOR &v) { x += v.x;  y += v.y; }
-}POINT;
 typedef struct VECTOR
 {
 	float x, y;
@@ -31,3 +19,14 @@ typedef struct VECTOR
 	void   operator*=(const VECTOR &v) { x *= v.x;	y *= v.y; }
 }VECTOR;
 #endif
+typedef struct POINT
+{
+	float x, y;
+	POINT(float x = 0, float y = 0)
+		: x(x), y(y) {}
+	POINT operator+ (const POINT  v)  { return POINT(x + v.x, y + v.y); }
+	void   operator+=(const VECTOR v) { x += v.x;	y += v.y; }
+	void   operator+=(const POINT &v) { x += v.x;	y += v.y; }
+	void   operator-=(const POINT &v) { x -= v.x;	y -= v.y; }
+	void   operator*=(const POINT &v) { x *= v.x;	y *= v.y; }
+}POINT;

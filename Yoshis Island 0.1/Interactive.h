@@ -3,7 +3,7 @@
 #include "Entity.h"
 #include "Texture.h"
 
-class Interactive :	public Entity
+class Interactive : public Entity
 {
 public:
 	Interactive(POINT location, double ang = 0.0);

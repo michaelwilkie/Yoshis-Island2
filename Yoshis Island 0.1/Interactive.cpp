@@ -1,9 +1,5 @@
 #include "Interactive.h"
-#ifdef DEBUG
-#  define D(x) std::cout << x 
-#else
-#  define D(x)
-#endif // DEBUG
+
 Interactive::Interactive(float x, float y, double ang)
 	: Entity(x, y)
 {
@@ -56,7 +52,6 @@ Texture& Interactive::getTexture()
 void Interactive::render(int x, int y, SDL_Renderer *renderer, SDL_Rect* clip, SDL_Point* center, SDL_RendererFlip flip)
 {
 	texture.render(x, y, renderer, clip, angle, center, flip);
-	D("Interactive rendered");
 }
 void Interactive::move()
 {

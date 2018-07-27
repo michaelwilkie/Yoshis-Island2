@@ -6,7 +6,7 @@
 class Window
 {
 private:
-	SDL_Window	 *window;
+	SDL_Window * window;
 	SDL_Surface	 *screenSurface;
 	SDL_Renderer *renderer;
 	TTF_Font	 *font;
@@ -18,7 +18,7 @@ private:
 	int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
 	bool VSYNC;
 public:
-	SDL_Surface		* getSurface();
+	SDL_Surface * getSurface();
 	SDL_Window		* getWindow();
 	SDL_Renderer	* getRenderer();
 	TTF_Font		* getFont();
@@ -33,6 +33,7 @@ public:
 	bool loadMedia();
 	Window();
 	virtual ~Window();
+	void calculateAverageFPS();
 	float avgfps;
 	int countedframes;
 };

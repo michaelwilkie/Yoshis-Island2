@@ -9,7 +9,7 @@ public:
 	virtual ~Texture();
 
 	// Loads image at specified path
-	bool loadFromFile(std::string path, SDL_Renderer *renderer);	
+	bool loadFromFile(std::string path, SDL_Renderer *renderer);
 
 	// Creates image from font string
 	bool loadFromRenderedText(std::string textureText, SDL_Color textColor, SDL_Renderer *renderer, TTF_Font *font);
@@ -27,7 +27,7 @@ public:
 	void setAlpha(Uint8 a);
 
 	SDL_Texture* getSDLTexture();
-	
+
 	// Get alpha
 	Uint8 getAlpha();
 

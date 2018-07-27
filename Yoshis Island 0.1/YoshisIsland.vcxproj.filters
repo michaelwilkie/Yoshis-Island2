@@ -33,13 +33,13 @@
     <ClCompile Include="Interactive.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Elevator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Wall.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Elevator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -65,13 +65,13 @@
     <ClInclude Include="gameheader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Elevator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Timer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Wall.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Elevator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

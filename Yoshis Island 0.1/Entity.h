@@ -20,7 +20,7 @@ public:
 	virtual bool loadMedia(std::string path, SDL_Renderer *renderer, float x, float y, int width = -1, int height = -1) = 0;
 	virtual bool loadMedia(SDL_Renderer *renderer, float x, float y, int width = -1, int height = -1) = 0;
 	virtual int getWidth() = 0;
-	virtual int getHeight()= 0;
+	virtual int getHeight() = 0;
 	virtual Texture& getTexture() = 0;
 };
 #endif

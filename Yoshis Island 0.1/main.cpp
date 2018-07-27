@@ -2,25 +2,9 @@
 // TODO:
 // Take care of circular includes
 // then work on Interactive class
-//#include "gameglobals.h"
-#include <vector>
-#include <iostream>
-#include <sstream>
-#include <cstring>
-#include <memory>
-#include <string>
-#include <math.h>
-#include "SHAPES.h"
-#include "stdio.h"
-#include "SDL.h"
-#include "SDL_image.h"
-#include "SDL_ttf.h"
+#include "gameglobals.h"
 #include "Window.h"
-#ifdef DEBUG
-#  define D(x) std::cout << x 
-#else
-#  define D(x)
-#endif // DEBUG
+#include <sstream>
 
 // Screen dimension constants
 const int SCREEN_WIDTH = 640;
@@ -29,25 +13,12 @@ const int SCREEN_HEIGHT = 480;
 void ClearScreen(Window &w);
 void Render(Window &w, Texture &TextTexture);
 
-int assignID(bool reset)
-{
-	static int id = 0;
-
-	if (reset)
-		id = 0;
-
-	int result = id;
-	id++;
-
-	return result;
-}
-
 int main(int argc, char* args[])
 {
+	// Main Window
 	Window w;
 
 	// Test object - Remove this at some point
-
 	Texture TextTexture;
 	Texture AVGFPSTexture;
 
@@ -64,8 +35,8 @@ int main(int argc, char* args[])
 	double angle = 0.0;
 	std::stringstream fps_str;
 
-	// Test create entity function - remove this at some point
 	createEntity(POINT(0, 0), 3);
+	createEntity(POINT(w.getScreenHeight()/2, 0), 3);
 
 	if (!w.init())
 	{
@@ -75,7 +46,7 @@ int main(int argc, char* args[])
 	{
 		if (!w.loadMedia())
 		{
-			cout << "Load media failed" << endl;
+			cout << "Media could not be loaded" << endl;
 		}
 		else
 		{
@@ -85,6 +56,7 @@ int main(int argc, char* args[])
 				cout << "Could not load text texture" << endl;
 			}
 			bool quit = false;
+
 			// Main game loop
 			while (!quit)
 			{
@@ -100,39 +72,19 @@ int main(int argc, char* args[])
 						// Increase alpha on w
 						if (eventHandler.key.keysym.sym == SDLK_w)
 						{
-							// Cap if over 255
-							if (a + 4 > 255)
-							{
-								a = 255;
-							}
-							// Increment otherwise
-							else
-							{
-								a += 4;
-								angle += 6;
-							}
+							// do something with w keypress
 						}
 						// Decrease alpha on s
 						else if (eventHandler.key.keysym.sym == SDLK_s)
 						{
-							// Cap if below 0
-							if (a - 4 < 0)
-							{
-								a = 0;
-							}
-							// Decrement otherwise
-							else
-							{
-								a -= 4;
-								angle -= 6;
-							}
+							// do something with s keypress
 						}
 					}
 				} // event handling loop
 
-				  //////////////////
-				  // Time testing //
-				  //////////////////
+				//////////////////
+				// Time testing //
+				//////////////////
 				fps_str.str("");
 				float time = round(w.getTime(), 1);
 				if (time - (int)time == 0)
@@ -153,11 +105,11 @@ int main(int argc, char* args[])
 				//////////////////////
 				// end time testing //
 				//////////////////////
+
 				// Clear screen
 				ClearScreen(w);
 
 				w.avgfps = w.countedframes / w.getTime();
-
 
 				// Render objects
 				Render(w, TextTexture);
@@ -166,26 +118,12 @@ int main(int argc, char* args[])
 				SDL_RenderPresent(w.getRenderer());
 
 				//Calculate and correct fps
-				w.avgfps = w.countedframes / w.getTime();
-				if (w.avgfps > 2000000)
-				{
-					w.avgfps = 0;
-				}
-
+				w.calculateAverageFPS();
 				w.countedframes++;
-
-				//If frame finished early
-				int frameTicks = w.getFPSTime();
-				if (frameTicks < w.getScreenTicksPerFrame())
-				{
-					//Wait remaining time
-					SDL_Delay(w.getScreenTicksPerFrame() - frameTicks);
-				}
-
-			} // game loop
-		} // load media
+			}
+		}
 	}
-
+	
 	return 0;
 }
 void ClearScreen(Window &w)
@@ -200,34 +138,34 @@ void Render(Window &w, Texture &TextTexture)
 	static bool left = true, up = true;
 	/*if (left)
 	{
-		if (x > TextTexture.getWidth())
-			x -= 3;
-		else
-			left = !left;
+	if (x > TextTexture.getWidth())
+	x -= 3;
+	else
+	left = !left;
 	}
 	else
 	{
-		if (x < w.getScreenWidth())
-			x += 3;
-		else
-			left = !left;
+	if (x < w.getScreenWidth())
+	x += 3;
+	else
+	left = !left;
 	}
 	if (up)
 	{
-		if (y > TextTexture.getHeight())
-			y -= 3;
-		else
-			up = !up;
+	if (y > TextTexture.getHeight())
+	y -= 3;
+	else
+	up = !up;
 	}
 	else
 	{
-		if (y < w.getScreenHeight())
-			y += 3;
-		else
-			up = !up;
+	if (y < w.getScreenHeight())
+	y += 3;
+	else
+	up = !up;
 	}*/
-	left ? x > obj->getTexture().getWidth()  ? x -= 3 : left = !left : x < w.getScreenWidth()  ? x += 3 : left = !left;
-	up   ? y > obj->getTexture().getHeight() ? y -= 3 : up   = !up   : y < w.getScreenHeight() ? y += 3 : up   = !up  ;
+	left ? x > obj->getTexture().getWidth() ? x -= 3 : left = !left : x < w.getScreenWidth() ? x += 3 : left = !left;
+	up ? y > obj->getTexture().getHeight() ? y -= 3 : up = !up : y < w.getScreenHeight() ? y += 3 : up = !up;
 
 
 	for (auto &ent : Layer1) ent->render(ent->loc.x, ent->loc.y, w.getRenderer());
@@ -245,5 +183,5 @@ void Render(Window &w, Texture &TextTexture)
 
 	for (auto &ent : Layer7) ent->render(ent->loc.x, ent->loc.y, w.getRenderer());
 
-	TextTexture.render(x - TextTexture.getWidth(), y - TextTexture.getHeight(), w.getRenderer());
+	TextTexture.render(x - TextTexture.getWidth(), y /*+ TextTexture.getHeight()*/, w.getRenderer());
 }

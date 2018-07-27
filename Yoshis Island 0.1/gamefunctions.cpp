@@ -4,6 +4,12 @@
 #include "gameglobals.h"
 #include "Wall.h"
 
+double distanceSquared(int x1, int y1, int x2, int y2);
+bool checkCollision(std::vector<SDL_Rect>& a, std::vector<SDL_Rect>& b);
+bool checkCollision(CIRCLE& a, CIRCLE& b);
+bool checkCollision(SDL_Rect &a, SDL_Rect &b);
+float clamp(float val, float clamp);
+bool operator==(Entity &a, Entity &b);
 
 SDL_Surface* loadSurface(std::string path, SDL_Surface *surface)
 {
@@ -66,7 +72,6 @@ void createEntity(POINT loc, int layer)
 {
 	cout << "Created object in ";
 	Entity *i = new Wall(loc.x, loc.y);
-
 	ObjectList.push_back(i);
 	switch (layer)
 	{
@@ -122,15 +127,12 @@ float approach(float goal, float &current, float delta)
 }
 bool checkCollision(std::vector<SDL_Rect>& a, std::vector<SDL_Rect>& b)
 {
-	bool success = true;
 	for (auto &e : a)
-	{
 		for (auto &f : b)
-		{
-			success = checkCollision(e, f);
-		}
-	}
-	return success;
+			if (!checkCollision(e, f))
+				return false;
+	
+	return true;
 }
 bool checkCollision(CIRCLE& a, CIRCLE& b)
 {
@@ -141,7 +143,7 @@ bool checkCollision(CIRCLE& a, CIRCLE& b)
 	//If the distance between the centers of the circles is less than the sum of their radii
 	return (distanceSquared(a.x, a.y, b.x, b.y) < (totalRadiusSquared));
 }
-bool checkCollision(SDL_Rect a, SDL_Rect b)
+bool checkCollision(SDL_Rect &a, SDL_Rect &b)
 {
 	//The sides of the rectangles
 	int leftA, leftB;
@@ -186,7 +188,6 @@ bool checkCollision(SDL_Rect a, SDL_Rect b)
 }
 float clamp(float val, float clamp)
 {
-	// Clamp the speed to ENT_VEL
 	if (abs(val) > abs(clamp))
 		if (val < 0)
 			return (-clamp);

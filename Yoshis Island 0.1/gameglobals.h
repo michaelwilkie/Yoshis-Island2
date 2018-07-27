@@ -16,10 +16,4 @@ vector<Entity*> Layer5; // Secondary layer, perhaps an alternate path to take th
 vector<Entity*> Layer6; // Background layer
 vector<Entity*> Layer7; // Background layer
 
-int DEV_SCREEN_WIDTH = 800;
-int DEV_SCREEN_HEIGHT= 680;
-
-// Main Window
-//Window w;
-
 #endif

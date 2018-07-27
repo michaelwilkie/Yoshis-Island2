@@ -12,6 +12,13 @@ Wall::Wall(float x, float y, int w, int h)
 	height = h;
 	setGravity(VECTOR(0, 0));
 }
+Wall::Wall(POINT loc, int w, int h)
+	: Interactive(loc, 0.0)
+{
+	width = w;
+	height = h;
+	setGravity(VECTOR(0, 0));
+}
 int Wall::getWidth()
 {
 	return width;
@@ -62,11 +69,11 @@ bool Wall::isSolid()
 {
 	return solid;
 }
-bool Wall::makeNotsolid()
+void Wall::makeNotsolid()
 {
 	solid = false;
 }
-bool Wall::makeSolid()
+void Wall::makeSolid()
 {
 	solid = true;
 }
