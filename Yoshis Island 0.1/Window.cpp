@@ -121,6 +121,10 @@ bool Window::loadMedia()
 
 Window::~Window()
 {
+	for (Entity *i : ObjectList)
+	{
+		delete i;
+	}
 	cout << "Closing window" << endl;
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);

@@ -14,6 +14,7 @@ typedef struct VECTOR
 	VECTOR operator+ (const float   e) { return VECTOR(x + e, y + e); }
 	VECTOR operator- (const float   e) { return VECTOR(x - e, y - e); }
 	VECTOR operator+ (const VECTOR  v) { return VECTOR(x + v.x, y + v.y); }
+	VECTOR operator- (const VECTOR  v) { return VECTOR(x - v.x, y - v.y); }
 	void   operator+=(const VECTOR &v) { x += v.x;	y += v.y; }
 	void   operator-=(const VECTOR &v) { x -= v.x;	y -= v.y; }
 	void   operator*=(const VECTOR &v) { x *= v.x;	y *= v.y; }

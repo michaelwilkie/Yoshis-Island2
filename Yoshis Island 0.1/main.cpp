@@ -35,8 +35,8 @@ int main(int argc, char* args[])
 	double angle = 0.0;
 	std::stringstream fps_str;
 
-	createEntity(POINT(0, 0), 3);
-	createEntity(POINT(w.getScreenHeight()/2, 0), 3);
+	createEntity(POINT(0, 0), 3, ENTTYPE::WALL_TYPE);
+	createEntity(POINT(w.getScreenHeight()/2, 0), 3, ENTTYPE::WALL_TYPE);
 
 	if (!w.init())
 	{
@@ -69,15 +69,20 @@ int main(int argc, char* args[])
 					}
 					else if (eventHandler.type == SDL_KEYDOWN)
 					{
-						// Increase alpha on w
-						if (eventHandler.key.keysym.sym == SDLK_w)
+						switch (eventHandler.key.keysym.sym)
 						{
-							// do something with w keypress
-						}
-						// Decrease alpha on s
-						else if (eventHandler.key.keysym.sym == SDLK_s)
-						{
-							// do something with s keypress
+							// Increase alpha on w
+							case SDLK_w:
+							{
+								deleteEntity(0);
+								cout << "Deleted an object" << endl;
+								break;
+							}
+							// Decrease alpha on s
+							case SDLK_s:
+							{
+								consoleCommand("create Wall");
+							}
 						}
 					}
 				} // event handling loop
@@ -133,47 +138,13 @@ void ClearScreen(Window &w)
 }
 void Render(Window &w, Texture &TextTexture)
 {
-	static int x = w.getScreenWidth(), y = w.getScreenHeight();
-	static Entity* obj = Layer3[0];
-	static bool left = true, up = true;
-	/*if (left)
-	{
-	if (x > TextTexture.getWidth())
-	x -= 3;
-	else
-	left = !left;
-	}
-	else
-	{
-	if (x < w.getScreenWidth())
-	x += 3;
-	else
-	left = !left;
-	}
-	if (up)
-	{
-	if (y > TextTexture.getHeight())
-	y -= 3;
-	else
-	up = !up;
-	}
-	else
-	{
-	if (y < w.getScreenHeight())
-	y += 3;
-	else
-	up = !up;
-	}*/
-	left ? x > obj->getTexture().getWidth() ? x -= 3 : left = !left : x < w.getScreenWidth() ? x += 3 : left = !left;
-	up ? y > obj->getTexture().getHeight() ? y -= 3 : up = !up : y < w.getScreenHeight() ? y += 3 : up = !up;
-
+	//static Entity* obj = Layer3[0];
 
 	for (auto &ent : Layer1) ent->render(ent->loc.x, ent->loc.y, w.getRenderer());
 
 	for (auto &ent : Layer2) ent->render(ent->loc.x, ent->loc.y, w.getRenderer());
 
-	for (auto &ent : Layer3) ent->render(/*ent->loc.x*/x - ent->getTexture().getWidth(), /*ent->loc.y*/y - ent->getTexture().getHeight(), w.getRenderer());
-	//for (auto &ent : Layer3) ent->render(ent->loc.x, ent->loc.y, w.getRenderer());
+	for (auto &ent : Layer3) ent->render(ent->loc.x, ent->loc.y, w.getRenderer());
 
 	for (auto &ent : Layer4) ent->render(ent->loc.x, ent->loc.y, w.getRenderer());
 
@@ -183,5 +154,5 @@ void Render(Window &w, Texture &TextTexture)
 
 	for (auto &ent : Layer7) ent->render(ent->loc.x, ent->loc.y, w.getRenderer());
 
-	TextTexture.render(x - TextTexture.getWidth(), y /*+ TextTexture.getHeight()*/, w.getRenderer());
+	//TextTexture.render(x - TextTexture.getWidth(), y /*+ TextTexture.getHeight()*/, w.getRenderer());
 }

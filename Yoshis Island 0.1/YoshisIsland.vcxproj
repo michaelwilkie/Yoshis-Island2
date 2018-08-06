@@ -128,6 +128,7 @@
     <ClCompile Include="gamefunctions.cpp" />
     <ClCompile Include="Interactive.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Path_node.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Wall.cpp" />
@@ -139,6 +140,7 @@
     <ClInclude Include="gameglobals.h" />
     <ClInclude Include="gameheader.h" />
     <ClInclude Include="Interactive.h" />
+    <ClInclude Include="Path_node.h" />
     <ClInclude Include="SHAPES.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Timer.h" />

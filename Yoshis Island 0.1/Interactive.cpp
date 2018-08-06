@@ -19,6 +19,52 @@ Interactive::~Interactive()
 {
 
 }
+int Interactive::getWidth()
+{
+	return width;
+}
+int Interactive::getHeight()
+{
+	return height;
+}
+bool Interactive::loadMedia(std::string path, SDL_Renderer *renderer, float x, float y, int width, int height)
+{
+	bool success = true;
+	if (!getTexture().loadFromFile(path, renderer))
+	{
+		cout << "Error loading file from: " << path << endl;
+		success = false;
+	}
+	if (height == -1 || width == -1)
+	{
+		SDL_QueryTexture(getTexture().getSDLTexture(), NULL, NULL, &width, &height);
+	}
+	this->width = width;
+	this->height = height;
+	SDL_Rect dimensions = { x, y, width, height };
+
+	dim.push_back(dimensions);
+
+	return success;
+}
+bool Interactive::loadMedia(SDL_Renderer *renderer, float x, float y, int width, int height)
+{
+	bool success = true;
+	if (!getTexture().loadFromFile("Textures/dev_wall.png", renderer))
+	{
+		cout << "Error loading file from: " << "Textures/dev_wall.png" << endl;
+		success = false;
+	}
+	if (height == -1 || width == -1)
+	{
+		SDL_QueryTexture(getTexture().getSDLTexture(), NULL, NULL, &width, &height);
+	}
+	SDL_Rect dimensions = { x, y, width, height };
+
+	dim.push_back(dimensions);
+
+	return success;
+}
 double Interactive::getAngle()
 {
 	return angle;

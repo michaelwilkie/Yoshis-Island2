@@ -17,6 +17,35 @@ using std::unique_ptr;
 using std::cout;
 using std::endl;
 
+float dt;
+class Entity;
+
+enum ENTTYPE
+{
+	ENTITY_TYPE = 0,
+	INTERACTIVE_TYPE,
+	WALL_TYPE,
+	ELEVATOR_TYPE,
+	TRIGGER_TYPE,
+	EFFECT_TYPE,
+	NULL_ENT_TYPE
+};
+enum KEYVALUE
+{
+	LOCATION = 0,
+	DIMENSIONS,
+	PARENT,
+	SOLID,
+	WIDTH,
+	HEIGHT,
+	SPEED,
+	VELOCITY,
+	GRAVITY,
+	ANGLE,
+	FRAME,
+	TEXTURE,
+	NULL_KEYVALUE
+};
 int assignEntityID(bool reset)
 {
 	// Only this function should handle this static variable
@@ -30,6 +59,10 @@ int assignEntityID(bool reset)
 
 	return result;
 }
-void createEntity(POINT loc, int layer);
+void consoleCommand(std::string argstr);
+float euclidean_distance(POINT a, POINT b);
+VECTOR getUnitVector(VECTOR V);
+Entity* createEntity(POINT loc, int layer, ENTTYPE type);
 float round(float number, int precision);
+void deleteEntity(int id);
 #endif
