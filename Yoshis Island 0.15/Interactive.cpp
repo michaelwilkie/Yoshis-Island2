@@ -128,3 +128,11 @@ void Interactive::setGravity(VECTOR g)
 {
 	gravity = g;
 }
+string Interactive::getName()
+{
+	return name;
+}
+void Interactive::setName(string n)
+{
+	name = n;
+}

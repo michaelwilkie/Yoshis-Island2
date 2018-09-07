@@ -1,5 +1,4 @@
-1. Finish implementing Window class
-	test run it
-2. Add other classes
-	add generic object class as a base for all others
-	try to hide pointers as well as possible
+1. Finish Elevator class
+	test movement between two points
+2. Implement collision physics?
+3. Start menu system

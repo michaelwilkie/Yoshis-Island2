@@ -1,7 +1,7 @@
 #ifndef ELEVATOR_H
 #define ELEVATOR_H
 #include "Interactive.h"
-#include "Path_node.h"
+//#include "Path_node.h"
 class Elevator :
 	public Interactive
 {
@@ -12,6 +12,7 @@ public:
 	bool isStarted();
 	void setSpeed(float s);
 	float getSpeed();
+	void setNextstop(Path_node *p);
 	void move();
 	void startforward();
 	void startbackward();

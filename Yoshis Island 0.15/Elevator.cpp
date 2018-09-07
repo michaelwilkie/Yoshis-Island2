@@ -6,6 +6,7 @@ Elevator::Elevator(float x, float y, int width, int height)
 	this->width = width;
 	this->height = height;
 	bool started = false;
+	speed = 100;
 }
 Elevator::Elevator(POINT location, int width, int height)
 	: Interactive(location, 0)
@@ -13,6 +14,7 @@ Elevator::Elevator(POINT location, int width, int height)
 	this->width = width;
 	this->height = height;
 	bool started = false;
+	speed = 100;
 }
 
 void Elevator::setSpeed(float s)
@@ -26,15 +28,21 @@ float Elevator::getSpeed()
 
 void Elevator::move()
 {
+	// If I haven't started moving
+	if (!started)
+		return;
 	// If I reached the end of the track
-	if (next == NULL)
+	if (next == nullptr)
 	{
 		stop();
+		return;
 	}
+	// If I am close enough to my next destination, start towards the one after that
 	if (euclidean_distance(loc, next->loc) < 1)
 	{
 		loc = POINT(next->loc);
 		next = next->getNext();
+		return;
 	}
 	// Move distance d along line between elevator location and elevator destination
 	// V(x1 - x0, y1 - y0)
@@ -43,10 +51,10 @@ void Elevator::move()
 
 	VECTOR location(loc.x, loc.y);
 	VECTOR destination(next->loc.x, next->loc.y);
-	VECTOR V(location - destination);
+	VECTOR V(destination - location);
 
 	VECTOR U = getUnitVector(V);
-	float d = speed / dt;
+	float d = speed * dt;
 
 	VECTOR newloc = location + U * d;
 	loc = POINT(newloc.x, newloc.y);
@@ -66,6 +74,10 @@ void Elevator::startforward()
 void Elevator::startbackward()
 {
 	started = true;
+}
+void Elevator::setNextstop(Path_node *p)
+{
+	next = p;
 }
 void Elevator::stop()
 {

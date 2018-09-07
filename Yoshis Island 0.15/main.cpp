@@ -5,6 +5,7 @@
 #include "gameglobals.h"
 #include "Window.h"
 #include <sstream>
+#include "Path_node.h"
 
 // Screen dimension constants
 const int SCREEN_WIDTH = 640;
@@ -12,11 +13,15 @@ const int SCREEN_HEIGHT = 480;
 
 void ClearScreen(Window &w);
 void Render(Window &w, Texture &TextTexture);
+void Act();
 
 int main(int argc, char* args[])
 {
 	// Main Window
 	Window w;
+
+	// Delta time calculation - this should not be removed
+	flCurrentTime = 0.0;
 
 	// Test object - Remove this at some point
 	Texture TextTexture;
@@ -35,9 +40,22 @@ int main(int argc, char* args[])
 	double angle = 0.0;
 	std::stringstream fps_str;
 
+	// Path Track object - Remove this at some point
+	// Remember to also remove the 'delete' statement near the bottom of main
+	Path_node *endtrack = new Path_node(400, 400);
+	Path_node *endtrack2 = new Path_node(400, 50);
+	Path_node *endtrack3 = new Path_node(50, 100);
+	endtrack->setNext(endtrack2);
+	endtrack2->setNext(endtrack3);
+	endtrack3->setNext(endtrack);
+
+	// elevator object - Remove this at some point
+	Interactive *elevat = nullptr;
+
 	//createEntity(POINT(0, 0), 3, ENTTYPE::WALL_TYPE);
 	//createEntity(POINT(w.getScreenHeight()/2, 0), 3, ENTTYPE::WALL_TYPE);
 	//createEntity(POINT(0, 0), 4, ENTTYPE::ELEVATOR_TYPE);
+
 	if (!w.init())
 	{
 		cout << "Initialization failed" << endl;
@@ -85,15 +103,36 @@ int main(int argc, char* args[])
 								cout << "Creating a wall" << endl;
 								cout << "ObjectList size: " << ObjectList.size() << endl;
 								w.loadMedia();
+								break;
 							}
 							case SDLK_d:
 							{
-								consoleCommand("create Elevator:location:50 50");
+								//consoleCommand("create Elevator:location:50 50");
+								elevat = createEntity(POINT(50, 50), 4, ENTTYPE::ELEVATOR_TYPE);
+								elevat->setNextstop(endtrack);
+								elevat->startforward();
 								w.loadMedia();
+								break;
+							}
+							case SDLK_ESCAPE:
+							{
+								quit = true;
+								break;
+							}
+							default:
+							{
+								// idk
 							}
 						}
 					}
 				} // event handling loop
+				////////////////////////////
+				// Delta time calculation //
+				////////////////////////////
+				flPreviousTime = flCurrentTime;
+				flCurrentTime = SDL_GetTicks()/1000.0f;
+				dt = flCurrentTime - flPreviousTime;
+
 
 				//////////////////
 				// Time testing //
@@ -110,7 +149,9 @@ int main(int argc, char* args[])
 					cout << "Unable to render time texture!" << endl;
 				}
 				fps_str.str("");
-				fps_str << w.avgfps;
+				//fps_str << w.avgfps;
+				if (elevat != NULL)
+					fps_str << elevat->loc.x << " " << elevat->loc.y;
 				if (!AVGFPSTexture.loadFromRenderedText(fps_str.str().c_str(), textcolor, w.getRenderer(), w.getFont()))
 				{
 					cout << "Unable to render avgfps texture!" << endl;
@@ -122,10 +163,14 @@ int main(int argc, char* args[])
 				// Clear screen
 				ClearScreen(w);
 
-				w.avgfps = w.countedframes / w.getTime();
-
 				// Render objects
 				Render(w, TextTexture);
+
+				// Act upon objects
+				Act();
+
+				w.avgfps = w.countedframes / w.getTime();
+
 				AVGFPSTexture.render(w.getScreenWidth() - AVGFPSTexture.getWidth(), w.getScreenHeight() / 2, w.getRenderer());
 				// Show updated screen
 				SDL_RenderPresent(w.getRenderer());
@@ -140,6 +185,7 @@ int main(int argc, char* args[])
 	{
 		delete i;
 	}
+	delete endtrack;
 	return 0;
 }
 void ClearScreen(Window &w)
@@ -166,4 +212,22 @@ void Render(Window &w, Texture &TextTexture)
 	for (auto &ent : Layer7) ent->render(ent->loc.x, ent->loc.y, w.getRenderer());
 
 	//TextTexture.render(x - TextTexture.getWidth(), y /*+ TextTexture.getHeight()*/, w.getRenderer());
+}
+
+void Act()
+{
+	for (auto &ent : Layer1) ent->move();
+
+	for (auto &ent : Layer2) ent->move();
+
+	for (auto &ent : Layer3) ent->move();
+
+	for (auto &ent : Layer4) ent->move();
+
+	for (auto &ent : Layer5) ent->move();
+
+	for (auto &ent : Layer6) ent->move();
+
+	for (auto &ent : Layer7) ent->move();
+
 }

@@ -31,6 +31,14 @@ void Wall::makeSolid()
 {
 	solid = true;
 }
+void Wall::startforward()
+{
+	// do nothing, this is a function for the elevator class
+}
+void Wall::setNextstop(Path_node* p)
+{
+	// do nothing, this is a function for the elevator class
+}
 void Wall::move()
 {
 

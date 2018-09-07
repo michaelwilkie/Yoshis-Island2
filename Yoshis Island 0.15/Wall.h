@@ -6,6 +6,8 @@ class Wall : public Interactive
 public:
 	Wall(float x = 0, float y = 0, int w = -1, int h = -1);
 	Wall(POINT loc, int w = -1, int h = -1);
+	void setNextstop(Path_node *p);
+	void startforward();
 	void move();
 	bool isSolid();
 	void makeNotsolid();

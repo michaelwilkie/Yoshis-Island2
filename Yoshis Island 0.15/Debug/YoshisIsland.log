@@ -1,20 +1,30 @@
-﻿  main.cpp
-c:\users\michael\source\repos\yoshisisland\yoshisisland\main.cpp(154): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\michael\source\repos\yoshisisland\yoshisisland\main.cpp(156): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\michael\source\repos\yoshisisland\yoshisisland\main.cpp(158): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\michael\source\repos\yoshisisland\yoshisisland\main.cpp(160): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\michael\source\repos\yoshisisland\yoshisisland\main.cpp(162): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\michael\source\repos\yoshisisland\yoshisisland\main.cpp(164): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\michael\source\repos\yoshisisland\yoshisisland\main.cpp(166): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+﻿  Elevator.cpp
+  main.cpp
+c:\users\michael\source\repos\yoshisisland\yoshisisland\main.cpp(200): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\michael\source\repos\yoshisisland\yoshisisland\main.cpp(202): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\michael\source\repos\yoshisisland\yoshisisland\main.cpp(204): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\michael\source\repos\yoshisisland\yoshisisland\main.cpp(206): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\michael\source\repos\yoshisisland\yoshisisland\main.cpp(208): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\michael\source\repos\yoshisisland\yoshisisland\main.cpp(210): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\michael\source\repos\yoshisisland\yoshisisland\main.cpp(212): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  Generating Code...
 LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/FORCE' specification
 Entity.obj : warning LNK4006: "int __cdecl assignEntityID(bool)" (?assignEntityID@@YAH_N@Z) already defined in Elevator.obj; second definition ignored
 Entity.obj : warning LNK4006: "float dt" (?dt@@3MA) already defined in Elevator.obj; second definition ignored
+Entity.obj : warning LNK4006: "float flCurrentTime" (?flCurrentTime@@3MA) already defined in Elevator.obj; second definition ignored
+Entity.obj : warning LNK4006: "float flPreviousTime" (?flPreviousTime@@3MA) already defined in Elevator.obj; second definition ignored
 gamefunctions.obj : warning LNK4006: "int __cdecl assignEntityID(bool)" (?assignEntityID@@YAH_N@Z) already defined in Elevator.obj; second definition ignored
 gamefunctions.obj : warning LNK4006: "float dt" (?dt@@3MA) already defined in Elevator.obj; second definition ignored
+gamefunctions.obj : warning LNK4006: "float flCurrentTime" (?flCurrentTime@@3MA) already defined in Elevator.obj; second definition ignored
+gamefunctions.obj : warning LNK4006: "float flPreviousTime" (?flPreviousTime@@3MA) already defined in Elevator.obj; second definition ignored
 Interactive.obj : warning LNK4006: "int __cdecl assignEntityID(bool)" (?assignEntityID@@YAH_N@Z) already defined in Elevator.obj; second definition ignored
 Interactive.obj : warning LNK4006: "float dt" (?dt@@3MA) already defined in Elevator.obj; second definition ignored
+Interactive.obj : warning LNK4006: "float flCurrentTime" (?flCurrentTime@@3MA) already defined in Elevator.obj; second definition ignored
+Interactive.obj : warning LNK4006: "float flPreviousTime" (?flPreviousTime@@3MA) already defined in Elevator.obj; second definition ignored
 main.obj : warning LNK4006: "int __cdecl assignEntityID(bool)" (?assignEntityID@@YAH_N@Z) already defined in Elevator.obj; second definition ignored
 main.obj : warning LNK4006: "float dt" (?dt@@3MA) already defined in Elevator.obj; second definition ignored
+main.obj : warning LNK4006: "float flCurrentTime" (?flCurrentTime@@3MA) already defined in Elevator.obj; second definition ignored
+main.obj : warning LNK4006: "float flPreviousTime" (?flPreviousTime@@3MA) already defined in Elevator.obj; second definition ignored
 main.obj : warning LNK4006: "class std::vector<class Interactive *,class std::allocator<class Interactive *> > ObjectList" (?ObjectList@@3V?$vector@PAVInteractive@@V?$allocator@PAVInteractive@@@std@@@std@@A) already defined in gamefunctions.obj; second definition ignored
 main.obj : warning LNK4006: "class std::vector<class Interactive *,class std::allocator<class Interactive *> > Layer1" (?Layer1@@3V?$vector@PAVInteractive@@V?$allocator@PAVInteractive@@@std@@@std@@A) already defined in gamefunctions.obj; second definition ignored
 main.obj : warning LNK4006: "class std::vector<class Interactive *,class std::allocator<class Interactive *> > Layer2" (?Layer2@@3V?$vector@PAVInteractive@@V?$allocator@PAVInteractive@@@std@@@std@@A) already defined in gamefunctions.obj; second definition ignored
@@ -25,10 +35,16 @@ main.obj : warning LNK4006: "class std::vector<class Interactive *,class std::al
 main.obj : warning LNK4006: "class std::vector<class Interactive *,class std::allocator<class Interactive *> > Layer7" (?Layer7@@3V?$vector@PAVInteractive@@V?$allocator@PAVInteractive@@@std@@@std@@A) already defined in gamefunctions.obj; second definition ignored
 Path_node.obj : warning LNK4006: "int __cdecl assignEntityID(bool)" (?assignEntityID@@YAH_N@Z) already defined in Elevator.obj; second definition ignored
 Path_node.obj : warning LNK4006: "float dt" (?dt@@3MA) already defined in Elevator.obj; second definition ignored
+Path_node.obj : warning LNK4006: "float flCurrentTime" (?flCurrentTime@@3MA) already defined in Elevator.obj; second definition ignored
+Path_node.obj : warning LNK4006: "float flPreviousTime" (?flPreviousTime@@3MA) already defined in Elevator.obj; second definition ignored
 Texture.obj : warning LNK4006: "int __cdecl assignEntityID(bool)" (?assignEntityID@@YAH_N@Z) already defined in Elevator.obj; second definition ignored
 Texture.obj : warning LNK4006: "float dt" (?dt@@3MA) already defined in Elevator.obj; second definition ignored
+Texture.obj : warning LNK4006: "float flCurrentTime" (?flCurrentTime@@3MA) already defined in Elevator.obj; second definition ignored
+Texture.obj : warning LNK4006: "float flPreviousTime" (?flPreviousTime@@3MA) already defined in Elevator.obj; second definition ignored
 Timer.obj : warning LNK4006: "int __cdecl assignEntityID(bool)" (?assignEntityID@@YAH_N@Z) already defined in Elevator.obj; second definition ignored
 Timer.obj : warning LNK4006: "float dt" (?dt@@3MA) already defined in Elevator.obj; second definition ignored
+Timer.obj : warning LNK4006: "float flCurrentTime" (?flCurrentTime@@3MA) already defined in Elevator.obj; second definition ignored
+Timer.obj : warning LNK4006: "float flPreviousTime" (?flPreviousTime@@3MA) already defined in Elevator.obj; second definition ignored
 Timer.obj : warning LNK4006: "class std::vector<class Interactive *,class std::allocator<class Interactive *> > ObjectList" (?ObjectList@@3V?$vector@PAVInteractive@@V?$allocator@PAVInteractive@@@std@@@std@@A) already defined in gamefunctions.obj; second definition ignored
 Timer.obj : warning LNK4006: "class std::vector<class Interactive *,class std::allocator<class Interactive *> > Layer1" (?Layer1@@3V?$vector@PAVInteractive@@V?$allocator@PAVInteractive@@@std@@@std@@A) already defined in gamefunctions.obj; second definition ignored
 Timer.obj : warning LNK4006: "class std::vector<class Interactive *,class std::allocator<class Interactive *> > Layer2" (?Layer2@@3V?$vector@PAVInteractive@@V?$allocator@PAVInteractive@@@std@@@std@@A) already defined in gamefunctions.obj; second definition ignored
@@ -39,6 +55,8 @@ Timer.obj : warning LNK4006: "class std::vector<class Interactive *,class std::a
 Timer.obj : warning LNK4006: "class std::vector<class Interactive *,class std::allocator<class Interactive *> > Layer7" (?Layer7@@3V?$vector@PAVInteractive@@V?$allocator@PAVInteractive@@@std@@@std@@A) already defined in gamefunctions.obj; second definition ignored
 Wall.obj : warning LNK4006: "int __cdecl assignEntityID(bool)" (?assignEntityID@@YAH_N@Z) already defined in Elevator.obj; second definition ignored
 Wall.obj : warning LNK4006: "float dt" (?dt@@3MA) already defined in Elevator.obj; second definition ignored
+Wall.obj : warning LNK4006: "float flCurrentTime" (?flCurrentTime@@3MA) already defined in Elevator.obj; second definition ignored
+Wall.obj : warning LNK4006: "float flPreviousTime" (?flPreviousTime@@3MA) already defined in Elevator.obj; second definition ignored
 Window.obj : warning LNK4006: "bool __cdecl operator==(class Entity &,class Entity &)" (??8@YA_NAAVEntity@@0@Z) already defined in gamefunctions.obj; second definition ignored
 Window.obj : warning LNK4006: "float __cdecl approach(float,float &,float)" (?approach@@YAMMAAMM@Z) already defined in gamefunctions.obj; second definition ignored
 Window.obj : warning LNK4006: "int __cdecl assignEntityID(bool)" (?assignEntityID@@YAH_N@Z) already defined in Elevator.obj; second definition ignored
@@ -62,6 +80,8 @@ Window.obj : warning LNK4006: "class std::vector<class std::basic_string<char,st
 Window.obj : warning LNK4006: "class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > > __cdecl stringsplit_first_of(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?stringsplit_first_of@@YA?AV?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@0@Z) already defined in gamefunctions.obj; second definition ignored
 Window.obj : warning LNK4006: "class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > > __cdecl stringsplit_n(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,int)" (?stringsplit_n@@YA?AV?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@0H@Z) already defined in gamefunctions.obj; second definition ignored
 Window.obj : warning LNK4006: "float dt" (?dt@@3MA) already defined in Elevator.obj; second definition ignored
+Window.obj : warning LNK4006: "float flCurrentTime" (?flCurrentTime@@3MA) already defined in Elevator.obj; second definition ignored
+Window.obj : warning LNK4006: "float flPreviousTime" (?flPreviousTime@@3MA) already defined in Elevator.obj; second definition ignored
 Window.obj : warning LNK4006: "class std::vector<class Interactive *,class std::allocator<class Interactive *> > ObjectList" (?ObjectList@@3V?$vector@PAVInteractive@@V?$allocator@PAVInteractive@@@std@@@std@@A) already defined in gamefunctions.obj; second definition ignored
 Window.obj : warning LNK4006: "class std::vector<class Interactive *,class std::allocator<class Interactive *> > Layer1" (?Layer1@@3V?$vector@PAVInteractive@@V?$allocator@PAVInteractive@@@std@@@std@@A) already defined in gamefunctions.obj; second definition ignored
 Window.obj : warning LNK4006: "class std::vector<class Interactive *,class std::allocator<class Interactive *> > Layer2" (?Layer2@@3V?$vector@PAVInteractive@@V?$allocator@PAVInteractive@@@std@@@std@@A) already defined in gamefunctions.obj; second definition ignored

@@ -18,6 +18,8 @@ using std::cout;
 using std::endl;
 
 float dt;
+float flCurrentTime;
+float flPreviousTime;
 class Interactive;
 
 enum ENTTYPE

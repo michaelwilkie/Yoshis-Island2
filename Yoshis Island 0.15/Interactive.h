@@ -2,6 +2,10 @@
 #define Interactive_H
 #include "Entity.h"
 #include "Texture.h"
+#include "Path_node.h"
+#include <string>
+
+using std::string;
 
 class Interactive : public Entity
 {
@@ -27,6 +31,11 @@ public:
 	void setVelocity(VECTOR v);
 	VECTOR getGravity();
 	void setGravity(VECTOR g);
+	string getName();
+	void setName(string n);
+	virtual void setNextstop(Path_node *p) = 0; // For elevator class
+	virtual void startforward() = 0; // For elevator class
+
 private:
 	int width, height;
 	int MAX_VELOCITY = 400;
@@ -36,6 +45,7 @@ private:
 	int frame;
 	int FRAMELIMIT;
 	Texture texture;
+	string name;
 	vector<SDL_Rect> spriteTable;
 };
 #endif
